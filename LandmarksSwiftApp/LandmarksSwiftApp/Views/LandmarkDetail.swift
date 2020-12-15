@@ -1,51 +1,48 @@
 //
-//  ContentView.swift
+//  LandmarkDetail.swift
 //  LandmarksSwiftApp
 //
-//  Created by mac on 2020/12/14.
+//  Created by mac on 2020/12/15.
 //  Copyright © 2020 mac. All rights reserved.
 //
 
 import SwiftUI
 
-struct ContentView: View {
+struct LandmarkDetail: View {
+    
+    var landmark: Landmark
+    
     var body: some View {
-        
         VStack {
-            
-            MapView()
+            MapView(coordinate: landmark.locationCoordinate)
                 .edgesIgnoringSafeArea(.top)
-                .frame(height: 300.0)
+                .frame(height: 300)
             
-            CircleImage()
+            CircleImage(image: landmark.image)
                 .offset(y: -130)
                 .padding(.bottom, -130)
             
             VStack(alignment: .leading) {
-                
-                Text("Turtle Rock")
+                Text(landmark.name)
                     .font(.title)
-                
-                HStack {
-                
-                    Text(/*@START_MENU_TOKEN@*/"Joshua Tree National Park"/*@END_MENU_TOKEN@*/)
+                HStack(alignment: .top) {
+                    Text(landmark.park)
                         .font(.subheadline)
-                    
                     Spacer()
-                    
-                    Text(/*@START_MENU_TOKEN@*/"California"/*@END_MENU_TOKEN@*/)
+                    Text(landmark.state)
                         .font(.subheadline)
                 }
             }
             .padding()
-            
+
             Spacer()
         }
+        .navigationBarTitle(Text(landmark.name), displayMode: .inline)
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct LandmarkDetail_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        LandmarkDetail(landmark: landmarkData[0])
     }
 }
